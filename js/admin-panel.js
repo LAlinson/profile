@@ -185,7 +185,58 @@ function handleFileImport(event) {
     reader.readAsText(file);
 }
 
-// Experience
+// ===== EXPERIENCE MODAL =====
+function openExpModal(index = null) {
+    document.getElementById('exp-index').value = index !== null ? index : '';
+    if (index !== null) {
+        const exp = resumeData.experience[index];
+        document.getElementById('expModalTitle').textContent = '✏️ Editar Experiência';
+        document.getElementById('exp-company').value = exp.company || '';
+        document.getElementById('exp-position').value = exp.position || '';
+        document.getElementById('exp-period').value = exp.period || '';
+        document.getElementById('exp-achievements').value = (exp.achievements || []).join('\n');
+    } else {
+        document.getElementById('expModalTitle').textContent = '💼 Nova Experiência';
+        document.getElementById('exp-company').value = '';
+        document.getElementById('exp-position').value = '';
+        document.getElementById('exp-period').value = '';
+        document.getElementById('exp-achievements').value = '';
+    }
+    document.getElementById('expModal').classList.add('open');
+    document.getElementById('exp-company').focus();
+}
+
+function closeExpModal() {
+    document.getElementById('expModal').classList.remove('open');
+}
+
+function saveExpModal() {
+    const company = document.getElementById('exp-company').value.trim();
+    const position = document.getElementById('exp-position').value.trim();
+    const period = document.getElementById('exp-period').value.trim();
+    const achievementsRaw = document.getElementById('exp-achievements').value;
+    const achievements = achievementsRaw.split('\n').map(a => a.trim()).filter(a => a);
+
+    if (!company || !position) {
+        alert('Empresa e Cargo são obrigatórios.');
+        return;
+    }
+
+    const indexVal = document.getElementById('exp-index').value;
+    if (!resumeData.experience) resumeData.experience = [];
+
+    if (indexVal !== '') {
+        resumeData.experience[parseInt(indexVal)] = { company, position, period, achievements };
+    } else {
+        resumeData.experience.push({ company, position, period, achievements });
+    }
+
+    closeExpModal();
+    renderExperienceList();
+    saveData();
+    showStatus('✅ Experiência salva!', 'success');
+}
+
 function renderExperienceList() {
     const container = document.getElementById('experience-list');
     container.innerHTML = '';
@@ -194,47 +245,74 @@ function renderExperienceList() {
         item.className = 'list-item';
         item.innerHTML = `
             <div class="list-item-header">
-                <div class="list-item-title">${exp.company} - ${exp.position}</div>
+                <div class="list-item-title">${exp.company} — ${exp.position}</div>
                 <div class="list-item-actions">
-                    <button class="btn btn-sm btn-primary" onclick="editExperience(${index})">✏️ Editar</button>
+                    <button class="btn btn-sm btn-primary" onclick="openExpModal(${index})">✏️ Editar</button>
                     <button class="btn btn-sm btn-danger" onclick="deleteExperience(${index})">🗑️</button>
                 </div>
             </div>
-            <div style="font-size:13px;color:#666;">${exp.period}</div>`;
+            <div style="font-size:13px;color:#666;margin-top:4px;">${exp.period}</div>
+            ${exp.achievements?.length ? `<ul style="margin-top:8px;padding-left:18px;font-size:13px;color:#555;">${exp.achievements.map(a => `<li>${a}</li>`).join('')}</ul>` : ''}`;
         container.appendChild(item);
     });
-}
-
-function addExperience() {
-    const company = prompt('Nome da empresa:');
-    if (!company) return;
-    const position = prompt('Cargo:') || '';
-    const period = prompt('Período (ex: Jan 2020 - Dez 2021):') || '';
-    const achievementsStr = prompt('Conquistas (separe por ponto-e-vírgula):') || '';
-    const achievements = achievementsStr.split(';').map(a => a.trim()).filter(a => a);
-    if (!resumeData.experience) resumeData.experience = [];
-    resumeData.experience.push({ company, position, period, achievements });
-    renderExperienceList();
-}
-
-function editExperience(index) {
-    const exp = resumeData.experience[index];
-    exp.company = prompt('Empresa:', exp.company) || exp.company;
-    exp.position = prompt('Cargo:', exp.position) || exp.position;
-    exp.period = prompt('Período:', exp.period) || exp.period;
-    const str = prompt('Conquistas (ponto-e-vírgula):', exp.achievements.join('; ')) || '';
-    exp.achievements = str.split(';').map(a => a.trim()).filter(a => a);
-    renderExperienceList();
 }
 
 function deleteExperience(index) {
     if (confirm('Excluir esta experiência?')) {
         resumeData.experience.splice(index, 1);
         renderExperienceList();
+        saveData();
     }
 }
 
-// Education
+// ===== EDUCATION MODAL =====
+function openEduModal(index = null) {
+    document.getElementById('edu-index').value = index !== null ? index : '';
+    if (index !== null) {
+        const edu = resumeData.education[index];
+        document.getElementById('eduModalTitle').textContent = '✏️ Editar Formação';
+        document.getElementById('edu-degree').value = edu.degree || '';
+        document.getElementById('edu-institution').value = edu.institution || '';
+        document.getElementById('edu-period').value = edu.period || '';
+    } else {
+        document.getElementById('eduModalTitle').textContent = '🎓 Nova Formação';
+        document.getElementById('edu-degree').value = '';
+        document.getElementById('edu-institution').value = '';
+        document.getElementById('edu-period').value = '';
+    }
+    document.getElementById('eduModal').classList.add('open');
+    document.getElementById('edu-degree').focus();
+}
+
+function closeEduModal() {
+    document.getElementById('eduModal').classList.remove('open');
+}
+
+function saveEduModal() {
+    const degree = document.getElementById('edu-degree').value.trim();
+    const institution = document.getElementById('edu-institution').value.trim();
+    const period = document.getElementById('edu-period').value.trim();
+
+    if (!degree || !institution) {
+        alert('Curso e Instituição são obrigatórios.');
+        return;
+    }
+
+    const indexVal = document.getElementById('edu-index').value;
+    if (!resumeData.education) resumeData.education = [];
+
+    if (indexVal !== '') {
+        resumeData.education[parseInt(indexVal)] = { degree, institution, period };
+    } else {
+        resumeData.education.push({ degree, institution, period });
+    }
+
+    closeEduModal();
+    renderEducationList();
+    saveData();
+    showStatus('✅ Formação salva!', 'success');
+}
+
 function renderEducationList() {
     const container = document.getElementById('education-list');
     container.innerHTML = '';
@@ -245,39 +323,73 @@ function renderEducationList() {
             <div class="list-item-header">
                 <div class="list-item-title">${edu.degree}</div>
                 <div class="list-item-actions">
-                    <button class="btn btn-sm btn-primary" onclick="editEducation(${index})">✏️ Editar</button>
+                    <button class="btn btn-sm btn-primary" onclick="openEduModal(${index})">✏️ Editar</button>
                     <button class="btn btn-sm btn-danger" onclick="deleteEducation(${index})">🗑️</button>
                 </div>
             </div>
-            <div style="font-size:13px;color:#666;">${edu.institution}</div>`;
+            <div style="font-size:13px;color:#666;margin-top:4px;">${edu.institution}${edu.period ? ' · ' + edu.period : ''}</div>`;
         container.appendChild(item);
     });
-}
-
-function addEducation() {
-    const degree = prompt('Curso/Grau:');
-    if (!degree) return;
-    const institution = prompt('Instituição:') || '';
-    if (!resumeData.education) resumeData.education = [];
-    resumeData.education.push({ degree, institution });
-    renderEducationList();
-}
-
-function editEducation(index) {
-    const edu = resumeData.education[index];
-    edu.degree = prompt('Curso/Grau:', edu.degree) || edu.degree;
-    edu.institution = prompt('Instituição:', edu.institution) || edu.institution;
-    renderEducationList();
 }
 
 function deleteEducation(index) {
     if (confirm('Excluir esta formação?')) {
         resumeData.education.splice(index, 1);
         renderEducationList();
+        saveData();
     }
 }
 
-// Languages
+// ===== LANGUAGE MODAL =====
+function openLangModal(index = null) {
+    document.getElementById('lang-index').value = index !== null ? index : '';
+    if (index !== null) {
+        const lang = resumeData.languages[index];
+        document.getElementById('langModalTitle').textContent = '✏️ Editar Idioma';
+        document.getElementById('lang-name').value = lang.name || '';
+        document.getElementById('lang-level').value = lang.level || '';
+        document.getElementById('lang-proficiency').value = lang.proficiency || 70;
+        document.getElementById('lang-prof-value').textContent = lang.proficiency || 70;
+    } else {
+        document.getElementById('langModalTitle').textContent = '🌍 Novo Idioma';
+        document.getElementById('lang-name').value = '';
+        document.getElementById('lang-level').value = '';
+        document.getElementById('lang-proficiency').value = 70;
+        document.getElementById('lang-prof-value').textContent = 70;
+    }
+    document.getElementById('langModal').classList.add('open');
+    document.getElementById('lang-name').focus();
+}
+
+function closeLangModal() {
+    document.getElementById('langModal').classList.remove('open');
+}
+
+function saveLangModal() {
+    const name = document.getElementById('lang-name').value.trim();
+    const level = document.getElementById('lang-level').value;
+    const proficiency = parseInt(document.getElementById('lang-proficiency').value);
+
+    if (!name || !level) {
+        alert('Idioma e Nível são obrigatórios.');
+        return;
+    }
+
+    const indexVal = document.getElementById('lang-index').value;
+    if (!resumeData.languages) resumeData.languages = [];
+
+    if (indexVal !== '') {
+        resumeData.languages[parseInt(indexVal)] = { name, level, proficiency };
+    } else {
+        resumeData.languages.push({ name, level, proficiency });
+    }
+
+    closeLangModal();
+    renderLanguagesList();
+    saveData();
+    showStatus('✅ Idioma salvo!', 'success');
+}
+
 function renderLanguagesList() {
     const container = document.getElementById('languages-list');
     container.innerHTML = '';
@@ -286,41 +398,30 @@ function renderLanguagesList() {
         item.className = 'list-item';
         item.innerHTML = `
             <div class="list-item-header">
-                <div class="list-item-title">${lang.name} - ${lang.level}</div>
+                <div class="list-item-title">${lang.name} — ${lang.level}</div>
                 <div class="list-item-actions">
-                    <button class="btn btn-sm btn-primary" onclick="editLanguage(${index})">✏️ Editar</button>
+                    <button class="btn btn-sm btn-primary" onclick="openLangModal(${index})">✏️ Editar</button>
                     <button class="btn btn-sm btn-danger" onclick="deleteLanguage(${index})">🗑️</button>
                 </div>
             </div>
-            <div style="font-size:13px;color:#666;">Proficiência: ${lang.proficiency}%</div>`;
+            <div style="font-size:13px;color:#666;margin-top:6px;">
+                <div style="background:#eee;border-radius:4px;height:6px;width:100%;">
+                    <div style="background:#3498db;height:6px;border-radius:4px;width:${lang.proficiency}%;"></div>
+                </div>
+                <span style="font-size:11px;">${lang.proficiency}%</span>
+            </div>`;
         container.appendChild(item);
     });
-}
-
-function addLanguage() {
-    const name = prompt('Idioma:');
-    if (!name) return;
-    const level = prompt('Nível (ex: C2 Proficiente):') || '';
-    const proficiency = parseInt(prompt('Proficiência (0-100):') || '50');
-    if (!resumeData.languages) resumeData.languages = [];
-    resumeData.languages.push({ name, level, proficiency });
-    renderLanguagesList();
-}
-
-function editLanguage(index) {
-    const lang = resumeData.languages[index];
-    lang.name = prompt('Idioma:', lang.name) || lang.name;
-    lang.level = prompt('Nível:', lang.level) || lang.level;
-    lang.proficiency = parseInt(prompt('Proficiência (0-100):', lang.proficiency) || lang.proficiency);
-    renderLanguagesList();
 }
 
 function deleteLanguage(index) {
     if (confirm('Excluir este idioma?')) {
         resumeData.languages.splice(index, 1);
         renderLanguagesList();
+        saveData();
     }
 }
+
 
 // Navigation
 document.querySelectorAll('.nav-item').forEach(item => {
