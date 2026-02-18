@@ -26,7 +26,7 @@ curriculo/
 Abra o arquivo `admin.html` no navegador:
 
 ```bash
-cd /Users/lucasalinsonazevedogoncalves/Documents/workspace/curriculo
+cd curriculo
 open admin.html
 ```
 
@@ -55,7 +55,7 @@ Clique em **🚀 Gerar Currículo**:
 - Faça commit e push para o GitHub
 
 ```bash
-cd /Users/lucasalinsonazevedogoncalves/Documents/workspace/curriculo
+cd curriculo
 git add index.html data/resume.json
 git commit -m "Atualização do currículo"
 git push origin main
