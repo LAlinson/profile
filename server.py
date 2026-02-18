@@ -99,11 +99,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     os.chdir(ROOT)
-    server = http.server.HTTPServer(('', PORT), Handler)
-    print(f"\n🚀 Servidor rodando em http://localhost:{PORT}")
-    print(f"📋 Lista de usuários: http://localhost:{PORT}/users.html")
-    print(f"✏️  Admin:            http://localhost:{PORT}/admin.html")
-    print(f"\nPressione Ctrl+C para parar.\n")
+    print(f"\n📁 ROOT: {ROOT}")
+    print(f"📂 Arquivos: {os.listdir(ROOT)}")
+    server = http.server.HTTPServer(('0.0.0.0', PORT), Handler)
+    print(f"\n🚀 Servidor rodando na porta {PORT}")
+    print(f"📋 users.html: {os.path.exists(os.path.join(ROOT, 'users.html'))}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
