@@ -2,3 +2,6 @@
 *.pdf
 node_modules/
 profile-photo.png
+
+# Backup local com dados pessoais (não sobe para o git)
+data/backup/
