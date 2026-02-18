@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Gerenciador de Currículo</title>
+    <title>Admin - Curriclin</title>
     <style>
         * {
             margin: 0;
@@ -249,7 +249,7 @@
 <body>
     <div class="admin-container">
         <div class="sidebar">
-            <h1>📝 Gerenciador de Currículo</h1>
+            <h1>📝 Curriclin</h1>
             <a href="users.html"
                 style="display:block;color:#a8c5c0;text-decoration:none;font-size:13px;margin-bottom:15px;">← Lista de
                 Usuários</a>
@@ -343,13 +343,13 @@
             <!-- Experience Section -->
             <div class="form-section" id="section-experience">
                 <div id="experience-list"></div>
-                <button class="btn btn-primary add-item-btn" onclick="addExperience()">➕ Adicionar Experiência</button>
+                <button class="btn btn-primary add-item-btn" onclick="openExpModal()">➕ Adicionar Experiência</button>
             </div>
 
             <!-- Education Section -->
             <div class="form-section" id="section-education">
                 <div id="education-list"></div>
-                <button class="btn btn-primary add-item-btn" onclick="addEducation()">➕ Adicionar Formação</button>
+                <button class="btn btn-primary add-item-btn" onclick="openEduModal()">➕ Adicionar Formação</button>
             </div>
 
             <!-- Skills Section -->
@@ -364,7 +364,7 @@
             <!-- Languages Section -->
             <div class="form-section" id="section-languages">
                 <div id="languages-list"></div>
-                <button class="btn btn-primary add-item-btn" onclick="addLanguage()">➕ Adicionar Idioma</button>
+                <button class="btn btn-primary add-item-btn" onclick="openLangModal()">➕ Adicionar Idioma</button>
             </div>
 
             <!-- Certifications Section -->
@@ -377,6 +377,192 @@
             </div>
         </div>
     </div>
+
+    <!-- ===== MODAL: Experiência ===== -->
+    <div class="modal-overlay" id="expModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="expModalTitle">💼 Nova Experiência</h3>
+                <button class="modal-close" onclick="closeExpModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="exp-index">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Empresa *</label>
+                        <input type="text" id="exp-company" placeholder="Ex: Mercado Livre">
+                    </div>
+                    <div class="form-group">
+                        <label>Cargo *</label>
+                        <input type="text" id="exp-position" placeholder="Ex: Tech Manager">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Período *</label>
+                    <input type="text" id="exp-period" placeholder="Ex: Janeiro 2024 - atual">
+                </div>
+                <div class="form-group">
+                    <label>Conquistas / Responsabilidades (uma por linha)</label>
+                    <textarea id="exp-achievements" rows="6"
+                        placeholder="Liderança de squad com 8 engenheiros&#10;Redução de 40% nos incidentes&#10;Implementação de CI/CD..."></textarea>
+                    <small style="color:#888;font-size:12px;">Cada linha vira um item na lista do currículo</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeExpModal()">Cancelar</button>
+                <button class="btn btn-success" onclick="saveExpModal()">💾 Salvar Experiência</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: Formação ===== -->
+    <div class="modal-overlay" id="eduModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="eduModalTitle">🎓 Nova Formação</h3>
+                <button class="modal-close" onclick="closeEduModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="edu-index">
+                <div class="form-group">
+                    <label>Curso / Grau *</label>
+                    <input type="text" id="edu-degree" placeholder="Ex: Análise e Desenvolvimento de Sistemas">
+                </div>
+                <div class="form-group">
+                    <label>Instituição *</label>
+                    <input type="text" id="edu-institution" placeholder="Ex: FATEC-SP">
+                </div>
+                <div class="form-group">
+                    <label>Período (opcional)</label>
+                    <input type="text" id="edu-period" placeholder="Ex: 2015 - 2017">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeEduModal()">Cancelar</button>
+                <button class="btn btn-success" onclick="saveEduModal()">💾 Salvar Formação</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: Idioma ===== -->
+    <div class="modal-overlay" id="langModal">
+        <div class="modal-box" style="max-width:420px;">
+            <div class="modal-header">
+                <h3 id="langModalTitle">🌍 Novo Idioma</h3>
+                <button class="modal-close" onclick="closeLangModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="lang-index">
+                <div class="form-group">
+                    <label>Idioma *</label>
+                    <input type="text" id="lang-name" placeholder="Ex: Inglês">
+                </div>
+                <div class="form-group">
+                    <label>Nível *</label>
+                    <select id="lang-level"
+                        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:14px;">
+                        <option value="">Selecione o nível...</option>
+                        <option value="A1 Iniciante">A1 Iniciante</option>
+                        <option value="A2 Básico">A2 Básico</option>
+                        <option value="B1 Intermediário">B1 Intermediário</option>
+                        <option value="B2 Intermediário Avançado">B2 Intermediário Avançado</option>
+                        <option value="C1 Avançado">C1 Avançado</option>
+                        <option value="C2 Proficiente">C2 Proficiente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Proficiência: <span id="lang-prof-value">70</span>%</label>
+                    <input type="range" id="lang-proficiency" min="0" max="100" value="70"
+                        oninput="document.getElementById('lang-prof-value').textContent = this.value"
+                        style="width:100%;accent-color:#3498db;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeLangModal()">Cancelar</button>
+                <button class="btn btn-success" onclick="saveLangModal()">💾 Salvar Idioma</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Modal styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 620px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            color: #2c3e50;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #888;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 16px 24px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #555;
+        }
+
+        .btn-outline:hover {
+            background: #f5f5f5;
+        }
+    </style>
 
     <input type="file" id="jsonFileInput" accept=".json" style="display: none;" onchange="handleFileImport(event)">
 
