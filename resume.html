@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo</title>
+    <style>
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+            font-family: sans-serif;
+            font-size: 13px;
+            gap: 10px;
+        }
+
+        .nav-bar a {
+            color: #a8c5c0;
+            text-decoration: none;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-pdf {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .btn-pdf:hover {
+            background: #c0392b;
+        }
+
+        .btn-pdf.loading {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        @media print {
+            .nav-bar {
+                display: none !important;
+            }
+
+            body {
+                padding-top: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="js/user-manager.js"></script>
+    <script src="js/resume-builder.js"></script>
+    <script>
+        let currentUser = null;
+
+        async function init() {
+            const params = new URLSearchParams(window.location.search);
+            const userId = params.get('user');
+
+            await userManager.loadUsers();
+
+            if (userId) {
+                currentUser = userManager.getById(userId);
+            } else {
+                currentUser = userManager.getAll()[0];
+            }
+
+            if (!currentUser || !currentUser.resumeData) {
+                document.body.innerHTML = `
+                <div style="font-family:sans-serif;text-align:center;padding:80px;color:#555;">
+                    <h2>Usuário não encontrado</h2>
+                    <p style="margin:15px 0">O currículo solicitado não existe.</p>
+                    <a href="users.html" style="color:#3498db;">← Voltar para lista</a>
+                </div>`;
+                return;
+            }
+
+            document.title = currentUser.name + ' - Currículo';
+
+            const builder = new ResumeBuilder(currentUser.resumeData);
+            const fullHtml = builder.generateHTML();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(fullHtml, 'text/html');
+
+            // Copy styles from generated HTML
+            Array.from(doc.head.querySelectorAll('style')).forEach(s => {
+                document.head.appendChild(s.cloneNode(true));
+            });
+            document.title = currentUser.name + ' - Currículo';
+
+            // Build nav bar
+            const navBar = document.createElement('div');
+            navBar.className = 'nav-bar';
+            navBar.innerHTML = `
+            <a href="users.html">← Voltar para lista</a>
+            <span>${currentUser.name}</span>
+            <div class="nav-actions">
+                <a href="admin.html?user=${currentUser.id}">✏️ Editar</a>
+                <button class="btn-pdf" onclick="printPDF(this)">📄 Gerar PDF</button>
+            </div>`;
+
+            document.body.style.paddingTop = '40px';
+            document.body.innerHTML = doc.body.innerHTML;
+            document.body.insertBefore(navBar, document.body.firstChild);
+        }
+
+        function printPDF(btn) {
+            btn.textContent = '⏳ Preparando...';
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                window.print();
+                btn.textContent = '📄 Gerar PDF';
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }, 300);
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

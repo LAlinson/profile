@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+// Resume Builder - Generates HTML from JSON data
+class ResumeBuilder {
+    constructor(data) {
+        this.data = data;
+    }
 
+    generateHTML() {
+        return `<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucas Alinson Azevedo Gonçalves - Currículo</title>
-    <style>
+    <title>${this.data.personal.name} - Currículo</title>
+    ${this.generateStyles()}
+</head>
+<body>
+    <div class="container">
+        ${this.generateSidebar()}
+        ${this.generateMainContent()}
+    </div>
+</body>
+</html>`;
+    }
+
+    generateStyles() {
+        return `<style>
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +43,6 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .sidebar {
             background-color: #4a4a4a;
             color: white;
@@ -99,14 +116,14 @@
         }
 
         .language-level {
-            font-weight: normal;
             font-size: 12px;
+            color: #a8c5c0;
         }
 
         .progress-bar {
             width: 100%;
             height: 8px;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: #666;
             border-radius: 4px;
             overflow: hidden;
         }
@@ -114,14 +131,12 @@
         .progress-fill {
             height: 100%;
             background-color: #a8c5c0;
-            border-radius: 4px;
             transition: width 0.3s ease;
         }
 
-        /* Main Content */
         .main-content {
             flex: 1;
-            background-color: #f5f5f5;
+            background-color: white;
         }
 
         .header {
@@ -130,88 +145,79 @@
         }
 
         .header h1 {
-            font-size: 42px;
-            font-weight: 300;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #333;
+            line-height: 1.3;
         }
 
         .content {
             padding: 40px 50px;
-            background-color: white;
         }
 
         .section {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .section h2 {
             font-size: 20px;
             font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #333;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #a8c5c0;
         }
 
         .section ul {
             list-style: none;
-            padding-left: 0;
+            margin: 0;
+            padding: 0;
         }
 
         .section ul li {
-            margin-bottom: 8px;
-            padding-left: 20px;
             position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         .section ul li::before {
-            content: '•';
+            content: '▸';
             position: absolute;
             left: 0;
-            font-weight: bold;
+            color: #a8c5c0;
+            font-size: 14px;
         }
 
         .job {
-            margin-bottom: 30px;
-        }
-
-        .job-header {
-            margin-bottom: 10px;
+            margin-bottom: 25px;
         }
 
         .job-period {
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
             margin-bottom: 5px;
         }
 
         .job-title {
-            font-weight: bold;
             font-size: 16px;
+            font-weight: bold;
+            color: #4a4a4a;
             margin-bottom: 10px;
-        }
-
-        .job ul li {
-            font-size: 14px;
-            margin-bottom: 8px;
         }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px 40px;
-        }
-
-        .skills-grid li {
-            font-size: 14px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 20px;
         }
 
         hr {
             border: none;
-            border-top: 2px solid #333;
-            margin: 30px 0;
+            border-top: 1px solid #ddd;
+            margin: 25px 0;
         }
 
         @media print {
@@ -390,115 +396,72 @@
                 border-top-width: 1px !important;
             }
         }
+    </style>`;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
+    generateSidebar() {
+        const { personal, education, languages } = this.data;
 
-            .sidebar {
-                width: 100%;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <img src="profile-photo.png" alt="Lucas Alinson Azevedo Gonçalves" class="profile-photo">
-
+        return `<div class="sidebar">
+            <img src="${personal.photo}" alt="${personal.name}" class="profile-photo">
+            
             <div class="contact-info">
-                <div class="contact-item">lucas.alinson@gmail.com</div>
-                <div class="contact-item">(15) 99683-1210</div>
-                <div class="contact-item">Sorocaba, SP</div>
+                <div class="contact-item">${personal.email}</div>
+                <div class="contact-item">${personal.phone}</div>
+                <div class="contact-item">${personal.location}</div>
                 <div class="contact-item">
-                    <a href="https://www.linkedin.com/in/lucas-alinson-goncalves-71149740/" target="_blank"
-                        style="color: white; text-decoration: none;">linkedin.com/in/lucas-alinson</a>
+                    <a href="${personal.linkedin}" target="_blank" style="color: white; text-decoration: none;">linkedin.com/in/lucas-alinson</a>
                 </div>
             </div>
 
             <section>
                 <h2>FORMAÇÃO ACADÊMICA</h2>
+                ${education.map(edu => `
                 <div class="education-item">
-                    <h3>Pós-graduação, Gestão de Projetos de TI</h3>
-                    <p>Anhanguera</p>
+                    <h3>${edu.degree}</h3>
+                    <p>${edu.institution}</p>
                 </div>
-                <div class="education-item">
-                    <h3>Análise e Desenvolvimento de Sistemas</h3>
-                    <p>FATEC-SP</p>
-                </div>
+                `).join('')}
             </section>
 
             <section>
                 <h2>IDIOMAS</h2>
+                ${languages.map(lang => `
                 <div class="language-item">
                     <div class="language-header">
-                        <span class="language-name">Português:</span>
-                        <span class="language-level">C2 Proficiente</span>
+                        <span class="language-name">${lang.name}:</span>
+                        <span class="language-level">${lang.level}</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
+                        <div class="progress-fill" style="width: ${lang.proficiency}%;"></div>
                     </div>
                 </div>
-                <div class="language-item">
-                    <div class="language-header">
-                        <span class="language-name">Espanhol:</span>
-                        <span class="language-level">C1 Avançado</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 90%;"></div>
-                    </div>
-                </div>
-                <div class="language-item">
-                    <div class="language-header">
-                        <span class="language-name">Inglês:</span>
-                        <span class="language-level">B1 Pré-intermediário</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 60%;"></div>
-                    </div>
-                </div>
+                `).join('')}
             </section>
-        </aside>
+        </div>`;
+    }
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
-                <h1>Lucas Alinson<br>Azevedo Gonçalves</h1>
-            </header>
+    generateMainContent() {
+        const { personal, summary, careerHighlights, experience, skills, certifications } = this.data;
+
+        return `<div class="main-content">
+            <div class="header">
+                <h1>${personal.name.toUpperCase()}</h1>
+            </div>
 
             <div class="content">
                 <section class="section">
                     <h2>Resumo Executivo</h2>
                     <ul>
-                        <li>Tech Manager com mais de 10 anos de experiência liderando times de Engenharia em ambientes
-                            de alta escala, missão crítica e forte regulação (Fintech e Marketplace). Experiência
-                            consolidada em arquitetura distribuída, liderança de squads multidisciplinares, excelência
-                            operacional e transformação organizacional. Atuação estratégica conectando Engenharia,
-                            Produto e Negócio, com foco em escalabilidade, eficiência operacional, redução de incidentes
-                            e escalabilidade sustentável. Especialista em:</li>
-                        <li>Arquitetura de Microsserviços</li>
-                        <li>Sistemas de Alta Disponibilidade (SLO 99,97%)</li>
-                        <li>Gestão de Times de Alta Performance</li>
-                        <li>FinOps e Otimização de Custos</li>
-                        <li>Cultura Ágil e Business Agility</li>
-                        <li>AWS, Golang, .NET, Kafka, Redis</li>
+                        <li>${summary.text}</li>
+                        ${summary.highlights.map(h => `<li>${h}</li>`).join('')}
                     </ul>
                 </section>
 
                 <section class="section">
                     <h2>Destaques de Carreira</h2>
                     <ul>
-                        <li>Liderança de times de até 20 profissionais em ambientes 24/7 | Redução de 40% de incidentes
-                            | SLO 99,97%</li>
-                        <li>Ganho de 25% em eficiência operacional | 1M+ clientes (BACEN) | Platform Engineering, SRE &
-                            DevOps</li>
+                        ${careerHighlights.map(h => `<li>${h}</li>`).join('')}
                     </ul>
                 </section>
 
@@ -506,66 +469,15 @@
 
                 <section class="section">
                     <h2>Experiência Profissional</h2>
-
+                    ${experience.map(job => `
                     <div class="job">
-                        <div class="job-period">Janeiro 2024 - atual</div>
-                        <div class="job-title">Mercado Livre - Tech Manager | Engineering Manager</div>
+                        <div class="job-period">${job.period}</div>
+                        <div class="job-title">${job.company} - ${job.position}</div>
                         <ul>
-                            <li>Platform Engineering: Melichat com milhões de mensagens/dia, SLO 99,97%, AWS (ECS,
-                                Lambda, DynamoDB)</li>
-                            <li>Technical Leadership: Squad multidisciplinar (Backend, Frontend, QA), performance
-                                reviews, cultura de segurança psicológica</li>
-                            <li>Engineering Metrics: SLO, SLA, MTTR, Lead Time, Deployment Frequency, Change Failure
-                                Rate</li>
-                            <li>Microservices & DevOps: Event-driven (Golang, Kafka, Redis), observabilidade (Datadog,
-                                Prometheus), CI/CD</li>
+                            ${job.achievements.map(a => `<li>${a}</li>`).join('')}
                         </ul>
                     </div>
-
-                    <div class="job">
-                        <div class="job-period">Janeiro 2023 - Julho 2024</div>
-                        <div class="job-title">Dock Tech - Tech Manager | Engineering Manager</div>
-                        <ul>
-                            <li>Engineering Management: Múltiplos squads, 10M+ clientes, ambiente regulado BACEN</li>
-                            <li>SRE & FinOps: Redução de 40% incidentes, otimização AWS (rightsizing, reserved
-                                instances)</li>
-                            <li>Tech Stack: .NET Core, microsserviços, event-driven architecture, observabilidade</li>
-                        </ul>
-                    </div>
-
-                    <div class="job">
-                        <div class="job-period">Janeiro 2022 - Janeiro 2023</div>
-                        <div class="job-title">Neon - Engineering Manager - Core Banking</div>
-                        <ul>
-                            <li>Atuação em ambiente bancário 24/7 de alta criticidade (SPB, Funding e Compliance).</li>
-                            <li>Gestão de ~20 profissionais, incluindo lideranças técnicas.</li>
-                            <li>Implantação estratégica do PIX com arquitetura distribuída em AWS.</li>
-                            <li>Ganho de 25% em eficiência operacional após reestruturação de processos.</li>
-                            <li>Definição de OKRs estratégicos e governança técnica.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job">
-                        <div class="job-period">Janeiro 2021 - Julho 2022</div>
-                        <div class="job-title">PagSeguro - Agile Development Leader</div>
-                        <ul>
-                            <li>Liderança de engenheiros seniores em ambiente de pagamentos digitais.</li>
-                            <li>Implementação de práticas de Clean Code, SOLID e code review estruturado.</li>
-                            <li>Conexão entre Produto e Engenharia com foco em escalabilidade.</li>
-                            <li>Evolução de métricas de previsibilidade via Power BI.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job">
-                        <div class="job-period">Dezembro 2017 - Outubro 2021</div>
-                        <div class="job-title">Amaggi - Agile Development Lead | Transformação Ágil</div>
-                        <ul>
-                            <li>Liderança da transformação ágil em múltiplos times.</li>
-                            <li>Implantação de Scrum para áreas que atendiam 80 filiais nacionais.</li>
-                            <li>Integração de sistemas logísticos, financeiros e fiscais.</li>
-                            <li>Consolidação de cultura orientada a métricas e melhoria contínua.</li>
-                        </ul>
-                    </div>
+                    `).join('')}
                 </section>
 
                 <hr>
@@ -573,18 +485,7 @@
                 <section class="section">
                     <h2>Habilidades e Competências</h2>
                     <ul class="skills-grid">
-                        <li>Arquitetura de Microsserviços</li>
-                        <li>Business Agility</li>
-                        <li>Sistemas de Alta Disponibilidade</li>
-                        <li>AWS</li>
-                        <li>Gestão de Times de Alta Performance</li>
-                        <li>Golang</li>
-                        <li>FinOps</li>
-                        <li>.NET</li>
-                        <li>Otimização de Custos</li>
-                        <li>Kafka</li>
-                        <li>Cultura Ágil</li>
-                        <li>Redis</li>
+                        ${skills.map(s => `<li>${s}</li>`).join('')}
                     </ul>
                 </section>
 
@@ -593,14 +494,15 @@
                 <section class="section">
                     <h2>Certificações Relevantes</h2>
                     <ul>
-                        <li>Architecting on AWS (AWS Jam)</li>
-                        <li>Scrum Master Professional Certificate</li>
-                        <li>Business Agility</li>
+                        ${certifications.map(c => `<li>${c}</li>`).join('')}
                     </ul>
                 </section>
             </div>
-        </main>
-    </div>
-</body>
+        </div>`;
+    }
+}
 
-</html>
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ResumeBuilder;
+}

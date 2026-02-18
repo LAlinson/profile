@@ -1,0 +1,127 @@
+{
+  "personal": {
+    "name": "Lucas Alinson Azevedo Gonçalves",
+    "photo": "profile-photo.png",
+    "email": "lucas.alinson@gmail.com",
+    "phone": "(15) 99683-1210",
+    "location": "Sorocaba, SP",
+    "linkedin": "https://www.linkedin.com/in/lucas-alinson-goncalves-71149740/"
+  },
+  "summary": {
+    "text": "Tech Manager com mais de 10 anos de experiência liderando times de Engenharia em ambientes de alta escala, missão crítica e forte regulação (Fintech e Marketplace). Experiência consolidada em arquitetura distribuída, liderança de squads multidisciplinares, excelência operacional e transformação organizacional. Atuação estratégica conectando Engenharia, Produto e Negócio, com foco em escalabilidade, eficiência operacional, redução de incidentes e escalabilidade sustentável. Especialista em:",
+    "highlights": [
+      "Arquitetura de Microsserviços",
+      "Sistemas de Alta Disponibilidade (SLO 99,97%)",
+      "Gestão de Times de Alta Performance",
+      "FinOps e Otimização de Custos",
+      "Cultura Ágil e Business Agility",
+      "AWS, Golang, .NET, Kafka, Redis"
+    ]
+  },
+  "careerHighlights": [
+    "Liderança de times de até 20 profissionais em ambientes 24/7 | Redução de 40% de incidentes | SLO 99,97%",
+    "Ganho de 25% em eficiência operacional | 1M+ clientes (BACEN) | Platform Engineering, SRE & DevOps"
+  ],
+  "experience": [
+    {
+      "company": "Mercado Livre",
+      "position": "Tech Manager | Engineering Manager",
+      "period": "Janeiro 2024 - atual",
+      "achievements": [
+        "Platform Engineering: Melichat com milhões de mensagens/dia, SLO 99,97%, AWS (ECS, Lambda, DynamoDB)",
+        "Technical Leadership: Squad multidisciplinar (Backend, Frontend, QA), performance reviews, cultura de segurança psicológica",
+        "Engineering Metrics: SLO, SLA, MTTR, Lead Time, Deployment Frequency, Change Failure Rate",
+        "Microservices & DevOps: Event-driven (Golang, Kafka, Redis), observabilidade (Datadog, Prometheus), CI/CD"
+      ]
+    },
+    {
+      "company": "Dock Tech",
+      "position": "Tech Manager | Engineering Manager",
+      "period": "Janeiro 2023 - Julho 2024",
+      "achievements": [
+        "Engineering Management: Múltiplos squads, 10M+ clientes, ambiente regulado BACEN",
+        "SRE & FinOps: Redução de 40% incidentes, otimização AWS (rightsizing, reserved instances)",
+        "Tech Stack: .NET Core, microsserviços, event-driven architecture, observabilidade"
+      ]
+    },
+    {
+      "company": "Neon",
+      "position": "Engineering Manager - Core Banking",
+      "period": "Janeiro 2022 - Julho 2023",
+      "achievements": [
+        "Atuação em processos técnicos de M&A (Fusão e Aquisição).",
+        "Gestão de 20 profissionais em 4 squads (Backend, Frontend, QA, Infra).",
+        "Definição de OKRs estratégicos e governança técnica.",
+        "Implementação de práticas de Incident Management e SRE."
+      ]
+    },
+    {
+      "company": "PagSeguro",
+      "position": "Tech Lead - Arquitetura e Automação Ágil",
+      "period": "Setembro 2017 - Outubro 2021",
+      "achievements": [
+        "Liderança de times de desenvolvimento e automação de testes.",
+        "Liderança de engenheiros seniores em ambientes de pagamento digital.",
+        "Otimização de arquitetura de Clean Code, SOLID e código refatorável.",
+        "Evolução de métodos de precificação em Power BI.",
+        "Consultoria de cultura orientada a métricas e melhores práticas."
+      ]
+    },
+    {
+      "company": "Amaggi",
+      "position": "Analista Desenvolvedor Líder",
+      "period": "Fevereiro 2015 - Setembro 2017",
+      "achievements": [
+        "Liderança de transformação Ágil em múltiplos times.",
+        "Integração de Scrum Ágil com processos de negócio existentes.",
+        "Consultoria de cultura orientada a métricas e melhores práticas."
+      ]
+    }
+  ],
+  "skills": [
+    "Arquitetura de Microsserviços",
+    "Sistemas de Alta Disponibilidade",
+    "Gestão de Times de Alta Performance",
+    "FinOps",
+    "Otimização de Custos",
+    "Cultura Ágil",
+    "Business Agility",
+    "AWS",
+    "Golang",
+    ".NET",
+    "Kafka",
+    "Redis"
+  ],
+  "education": [
+    {
+      "degree": "Pós-graduação, Gestão de Projetos de TI",
+      "institution": "Anhanguera"
+    },
+    {
+      "degree": "Análise e Desenvolvimento de Sistemas",
+      "institution": "FATEC-SP"
+    }
+  ],
+  "languages": [
+    {
+      "name": "Português",
+      "level": "C2 Proficiente",
+      "proficiency": 100
+    },
+    {
+      "name": "Espanhol",
+      "level": "C1 Avançado",
+      "proficiency": 85
+    },
+    {
+      "name": "Inglês",
+      "level": "B1 Intermediário",
+      "proficiency": 60
+    }
+  ],
+  "certifications": [
+    "Architecting on AWS (AWS 3xx)",
+    "Developing on AWS (AWS 2xx)",
+    "Business Agility"
+  ]
+}
