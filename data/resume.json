@@ -1,46 +1,109 @@
 {
   "personal": {
-    "name": "Seu Nome Completo",
+    "name": "Lucas Alinson Azevedo Gonçalves",
     "photo": "profile-photo.png",
-    "email": "seuemail@exemplo.com",
-    "phone": "(00) 00000-0000",
-    "location": "Cidade, Estado",
-    "linkedin": "https://linkedin.com/in/seu-perfil"
+    "email": "lucas.alinson@gmail.com",
+    "phone": "(15) 99683-1210",
+    "location": "Sorocaba, SP",
+    "linkedin": "https://www.linkedin.com/in/lucas-alinson-goncalves-71149740/"
   },
   "summary": {
-    "text": "Profissional com experiência em [área de atuação], com foco em [especialidade]. Apaixonado por tecnologia e inovação.",
+    "text": "Tech Manager com mais de 10 anos de experiência liderando times de Engenharia em ambientes de alta escala, missão crítica e forte regulação (Fintech e Marketplace). Experiência consolidada em arquitetura distribuída, liderança de squads multidisciplinares, excelência operacional e transformação organizacional. Atuação estratégica conectando Engenharia, Produto e Negócio, com foco em escalabilidade, eficiência operacional, redução de incidentes e escalabilidade sustentável.",
     "highlights": [
-      "Habilidade 1",
-      "Habilidade 2",
-      "Habilidade 3"
+      "Arquitetura de Microsserviços",
+      "Sistemas de Alta Disponibilidade (SLO 99,97%)",
+      "Gestão de Times de Alta Performance",
+      "FinOps e Otimização de Custos",
+      "Cultura Ágil e Business Agility",
+      "AWS, Golang, .NET, Kafka, Redis"
     ]
   },
   "careerHighlights": [
-    "Conquista relevante 1",
-    "Conquista relevante 2"
+    "Liderança de times de até 20 profissionais em ambientes 24/7 | Redução de 40% de incidentes | SLO 99,97%",
+    "Ganho de 25% em eficiência operacional | 1M+ clientes (BACEN) | Platform Engineering, SRE & DevOps"
   ],
   "experience": [
     {
-      "company": "Empresa Exemplo",
-      "position": "Cargo Exemplo",
-      "period": "Jan 2020 - atual",
+      "company": "Mercado Livre",
+      "position": "Tech Manager | Engineering Manager",
+      "period": "Janeiro 2024 - atual",
       "achievements": [
-        "Responsabilidade ou conquista 1",
-        "Responsabilidade ou conquista 2"
+        "Platform Engineering: Melichat com milhões de mensagens/dia, SLO 99,97%, AWS (ECS, Lambda, DynamoDB)",
+        "Technical Leadership: Squad multidisciplinar (Backend, Frontend, QA), performance reviews, cultura de segurança psicológica",
+        "Engineering Metrics: SLO, SLA, MTTR, Lead Time, Deployment Frequency, Change Failure Rate",
+        "Microservices & DevOps: Event-driven (Golang, Kafka, Redis), observabilidade (Datadog, Prometheus), CI/CD"
+      ]
+    },
+    {
+      "company": "Dock Tech",
+      "position": "Tech Manager | Engineering Manager",
+      "period": "Janeiro 2023 - Julho 2024",
+      "achievements": [
+        "Engineering Management: Múltiplos squads, 10M+ clientes, ambiente regulado BACEN",
+        "SRE & FinOps: Redução de 40% incidentes, otimização AWS (rightsizing, reserved instances)",
+        "Tech Stack: .NET Core, microsserviços, event-driven architecture, observabilidade"
+      ]
+    },
+    {
+      "company": "Neon",
+      "position": "Engineering Manager - Core Banking",
+      "period": "Janeiro 2022 - Janeiro 2023",
+      "achievements": [
+        "Atuação em ambiente bancário 24/7 de alta criticidade (SPB, Funding e Compliance).",
+        "Gestão de ~20 profissionais, incluindo lideranças técnicas.",
+        "Implantação estratégica do PIX com arquitetura distribuída em AWS.",
+        "Ganho de 25% em eficiência operacional após reestruturação de processos.",
+        "Definição de OKRs estratégicos e governança técnica."
+      ]
+    },
+    {
+      "company": "PagSeguro",
+      "position": "Agile Development Leader",
+      "period": "Janeiro 2021 - Julho 2022",
+      "achievements": [
+        "Liderança de engenheiros seniores em ambiente de pagamentos digitais.",
+        "Implementação de práticas de Clean Code, SOLID e code review estruturado.",
+        "Conexão entre Produto e Engenharia com foco em escalabilidade.",
+        "Evolução de métricas de previsibilidade via Power BI."
+      ]
+    },
+    {
+      "company": "Amaggi",
+      "position": "Agile Development Lead | Transformação Ágil",
+      "period": "Dezembro 2017 - Outubro 2021",
+      "achievements": [
+        "Liderança da transformação ágil em múltiplos times.",
+        "Implantação de Scrum para áreas que atendiam 80 filiais nacionais.",
+        "Integração de sistemas logísticos, financeiros e fiscais.",
+        "Consolidação de cultura orientada a métricas e melhoria contínua."
       ]
     }
   ],
   "education": [
     {
-      "degree": "Bacharelado em Ciência da Computação",
-      "institution": "Universidade Exemplo",
-      "period": "2015 - 2019"
+      "degree": "Pós-graduação, Gestão de Projetos de TI",
+      "institution": "Anhanguera",
+      "period": ""
+    },
+    {
+      "degree": "Análise e Desenvolvimento de Sistemas",
+      "institution": "FATEC-SP",
+      "period": ""
     }
   ],
   "skills": [
-    "Habilidade Técnica 1",
-    "Habilidade Técnica 2",
-    "Habilidade Técnica 3"
+    "Arquitetura de Microsserviços",
+    "Business Agility",
+    "Sistemas de Alta Disponibilidade",
+    "AWS",
+    "Gestão de Times de Alta Performance",
+    "Golang",
+    "FinOps",
+    ".NET",
+    "Otimização de Custos",
+    "Kafka",
+    "Cultura Ágil",
+    "Redis"
   ],
   "languages": [
     {
@@ -49,13 +112,19 @@
       "proficiency": 100
     },
     {
+      "name": "Espanhol",
+      "level": "C1 Avançado",
+      "proficiency": 90
+    },
+    {
       "name": "Inglês",
-      "level": "B2 Intermediário Avançado",
-      "proficiency": 70
+      "level": "B1 Pré-intermediário",
+      "proficiency": 60
     }
   ],
   "certifications": [
-    "Certificação Exemplo 1",
-    "Certificação Exemplo 2"
+    "Architecting on AWS (AWS Jam)",
+    "Scrum Master Professional Certificate",
+    "Business Agility"
   ]
 }
